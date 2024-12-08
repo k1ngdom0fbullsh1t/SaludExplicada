@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urocultivo - Salud Explicada 2.0</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <img src="img/turocultivo.png" alt="Logo Salud Explicada 2.0" class="logo">
+    </header>
+    <main class="instructions" id="instructions">
+        <section>
+            <h2>El urocultivo es un examen que detecta infecciones urinarias. Aquí te explico cómo hacerlo paso a paso</h2>
+        </section>
+        <section>
+            <h3>Preparación</h3>
+            <p>Informa a tu médico si posees un tratamiento de antibióticos para un tratamiento actual de infección urinaria, no te preocupes queremos ayudarte!.</p>
+        </section>
+        <section>
+            <h3>Recolección</h3>
+            <p>El funcionario te entregará un equipo de limpieza, sigue estás instrucciones y todo saldrá bien!.</p>
+            <p>- HOMBRES: Deberás lavar tus manos y mojaras los algodones con abundante agua y jabón. Deja algunos para enguajar!. Harás para atrás la piel que cubre tu pene y limpiarás esta zona con los algodones procura eliminar el jabón. Una vez hecho esto abre tu frasco, déjalo preparado. Orina un pequeño chorro dentro de la taza del baño, el resto irá dentro. Es importante saber que solo necesitamos la mitad de este, no te sobreexijas ni te animes tanto!. Ya está listo, limpia, seca y tapa bien tu frasco, ya puedes entregarlo e irte, nosotros lo analizaremos.</p>
+            <p>- MUJERES: Lo primero, deberás avisar si estás con tu periodo, esto podría afectar tanto en color como en su análisis. Tranquila, podrás tomarlo en otro momento.</p>
+            <p>El personal te dará elementos para tu limpieza, deberás remojarlos todos, algunos con jabón y otros para enguajar. SIEMPRE de adelante hacia atrás, quedará mejor!. Una vez quitado el jabón, abre tu frasco, orina el primer chorro fuera y el resto dentro, solo necesitamos al menos la mitad, has tú mejor esfuerzo!. Una vez terminado limpia, seca y cierra bien el frasco, ya puedes entregarlo e irte. Nosotros lo analizaremos</p>
+        </section>
+        <section>
+            <h3>Entrega</h3>
+            <p>Los resultados estarán hasta dentro 48 horas en caso de presentar algún tipo de bacteria, espera pacientemente.</p>
+        </section>
+        <section style="text-align: center;">
+            <button onclick="narrarTexto()" class="control-button">
+                <img src="img/play.png" alt="Reproducir Narración" id="startButton" class="back-icon">
+            </button>
+            <button onclick="pausarNarracion()" class="control-button">
+                <img src="img/pause.png" alt="Pausar Narración" id="pauseButton" class="back-icon">
+            </button>
+        </section>
+        <section style="text-align: center;">
+            <a href="index.html">
+                <img src="img/back.png" alt="Volver al Menú" class="back-icon">
+            </a> 
+        </section>
+    </main>
+
+<script>
+let narrador = window.speechSynthesis;
+let mensaje; // Esta variable guardará la instancia actual del mensaje para controlarlo
+let textoCompleto = "";
+let partes = [];
+
+window.onload = function() {
+    // Aquí puedes llamar a la función si deseas que empiece automáticamente
+    narrarTexto();
+};
+
+function narrarTexto() {
+    const textoInicial = "SALUD EXPLICADA: UROCULTIVO";
+    const contenido = document.getElementById("instructions").innerText;
+    textoCompleto = `${textoInicial}. ${contenido}`;
+
+    // Dividir el texto en partes si es muy largo
+    partes = textoCompleto.match(/.{1,200}/g);
+
+    if (narrador.speaking) {
+        narrador.cancel(); // Cancelar cualquier narración anterior
+    }
+
+    narrarParte(0);
+}
+
+function narrarParte(index) {
+    if (index < partes.length) {
+        mensaje = new SpeechSynthesisUtterance(partes[index]);
+        mensaje.lang = "es-ES";
+        mensaje.rate = 1;
+        mensaje.pitch = 1;
+
+        mensaje.onend = () => narrarParte(index + 1);
+        mensaje.onerror = (e) => console.error("Error en la narración:", e);
+
+        narrador.speak(mensaje);
+    } else {
+        console.log("Narración completa.");
+    }
+}
+
+function pausarNarracion() {
+    if (narrador.speaking) {
+        narrador.pause();
+        console.log("Narración pausada.");
+    }
+}
+
+function reanudarNarracion() {
+    if (narrador.paused) {
+        narrador.resume();
+        console.log("Narración reanudada.");
+    }
+}
+
+</script>
+
+</body>
+</html>

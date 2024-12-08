@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coprocultivo - Salud Explicada 2.0</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <img src="img/tcoprocultivo.png" alt="Logo Salud Explicada 2.0" class="logo">
+    </header>
+    <main class="instructions" id="instructions">
+        <section>
+            <h2>El coprocultivo es un examen que detecta infecciones en el sistema digestivo. Te explico cómo hacerlo paso a paso:</h2>
+        </section>
+        <section>
+            <h3>Preparación</h3>
+            <p>Existen 2 formas para tomar este examen , solo has la segunda si te lo piden, ya que podrías complicarte sin necesidad.</p>
+        </section>
+        <section>
+            <h3>Recolección</h3>
+            <p>En algunos lugares te darán un algodón/torula con una tapa roja, si es así, será un poco más fácil!. A continuación una vez en el baño, deberás insertar el algodón 2 cm dentro de tu ano con cuidado, no es mucho. Solo verifica que el color sea amarillento o café, significa que lo lograste. Vuelve a dejarlo dentro del recipiente rojo! Ya está, entregalo con mucho cuidado a tu encargado del examen.</p>
+            <p>+Este otro método un poco más difícil, tendrá más bacterias que estén dañandote para analizar en caso de que tengas.</p>
+            <p>Usaras un recipiente para las heces, para no mezclarlo con orina, deberás verificar que estén separados. Luego en un frasco anteriormente entregado por tu personal de salud, deberás recoger una PEQUEÑA MUESTRA, del tamaño de un poroto o algo chico que se asimile. Esto es lo que analizaremos, cierra bien el frasco, ponlo en una bolsa, si te entregaron una, úsala.</p>
+            <p>Ya está, puedes ir a entregar tu muestra para analizarla.</p>
+        </section>
+        <section>
+            <h3>Entrega</h3>
+            <p>Veremos si algo anda mal con tu estómago, quizás hay bacterias que no deberían estar ahí, espera dentro de 2 a 4 días podrían estar tus resultados en caso de que estén positivos.</p>
+        </section>
+        <section style="text-align: center;">
+            <button onclick="narrarTexto()" class="control-button">
+                <img src="img/play.png" alt="Reproducir Narración" id="startButton" class="back-icon">
+            </button>
+            <button onclick="pausarNarracion()" class="control-button">
+                <img src="img/pause.png" alt="Pausar Narración" id="pauseButton" class="back-icon">
+            </button>
+        </section>
+        <section style="text-align: center;">
+            <a href="index.html">
+                <img src="img/back.png" alt="Volver al Menú" class="back-icon">
+            </a> 
+        </section>
+    </main>
+    <script>
+        let narrador = window.speechSynthesis;
+        let mensaje; // Esta variable guardará la instancia actual del mensaje para controlarlo
+        let textoCompleto = "";
+        let partes = [];
+        
+        window.onload = function() {
+            // Aquí puedes llamar a la función si deseas que empiece automáticamente
+            narrarTexto();
+        };
+        
+        function narrarTexto() {
+            const textoInicial = "SALUD EXPLICADA: COPROCULTIVO";
+            const contenido = document.getElementById("instructions").innerText;
+            textoCompleto = `${textoInicial}. ${contenido}`;
+        
+            // Dividir el texto en partes si es muy largo
+            partes = textoCompleto.match(/.{1,200}/g);
+        
+            if (narrador.speaking) {
+                narrador.cancel(); // Cancelar cualquier narración anterior
+            }
+        
+            narrarParte(0);
+        }
+        
+        function narrarParte(index) {
+            if (index < partes.length) {
+                mensaje = new SpeechSynthesisUtterance(partes[index]);
+                mensaje.lang = "es-ES";
+                mensaje.rate = 1;
+                mensaje.pitch = 1;
+        
+                mensaje.onend = () => narrarParte(index + 1);
+                mensaje.onerror = (e) => console.error("Error en la narración:", e);
+        
+                narrador.speak(mensaje);
+            } else {
+                console.log("Narración completa.");
+            }
+        }
+        
+        function pausarNarracion() {
+            if (narrador.speaking) {
+                narrador.pause();
+                console.log("Narración pausada.");
+            }
+        }
+        
+        function reanudarNarracion() {
+            if (narrador.paused) {
+                narrador.resume();
+                console.log("Narración reanudada.");
+            }
+        }
+        
+    </script>
+</body>
+</html>

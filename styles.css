@@ -1,0 +1,136 @@
+/* General */
+body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    /* background-color: #004080; Azul oscuro */
+    background-image: url('img/fondo.png');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(76, 100, 235, 0.7);
+    /*background: rgba(76, 100, 235, 0.7); Header */
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.header p {
+    font-size: 1.2em;
+}
+
+.header .logo {
+    max-width: 100%; /* Asegura que la imagen no se desborde */
+    height: auto;    /* Mantiene la proporción de la imagen */
+    max-height: 200px; /* Ajusta la altura máxima de la imagen */
+    opacity: 0.8; /* Ajusta la opacidad para que la imagen sea un poco más transparente */
+}
+
+.back-icon {
+    max-width: 100%; /* Asegura que la imagen no se desborde */
+    height: auto;    /* Mantiene la proporción de la imagen */
+    max-height: 50px; /* Ajusta la altura máxima de la imagen */
+    opacity: 0.8; /* Ajusta la opacidad para que la imagen sea un poco más transparente */
+    
+}
+
+.control-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+/* Menu */
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.menu-item {
+    text-decoration: none;
+    color: inherit;
+    /*background: rgba(255, 255, 255, 0.2);*/
+    background: rgba(76, 100, 235, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item:hover {
+    background: rgba(76, 100, 235, 0.4);
+    /*background: rgba(255, 255, 255, 0.4);*/
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.menu-item a {
+    display: block;
+    font-size: 1.5em;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.menu-item p {
+    font-size: 1em;
+    color: #ddd;
+    margin: 0;
+}
+
+
+/* Instructions */
+.instructions {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(76, 100, 235, 0.7);
+    border-radius: 10px;
+}
+
+.instructions section {
+    margin-bottom: 20px;
+}
+
+.instructions h2 {
+    margin-bottom: 10px;
+}
+
+.back-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* imagenes */
+.menu-image {
+    width: 200px; /* Tamaño fijo para las imágenes */
+    height: 200px; /* Tamaño fijo para mantener la proporción */
+    margin-top: 10px;
+    border-radius: 50%;
+    border: 4px solid #2c3e50; /* Borde del mismo color que el header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    object-fit: cover; /* Asegura que la imagen se ajuste bien sin distorsionarse */
+}
+
+.menu-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
